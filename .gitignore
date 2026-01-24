@@ -10,8 +10,16 @@ node_modules/
 dist/
 build/
 .DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # VoteChainAI specific
 backend/votechainai.db
 backend/votechainai.db-journal
 test_images/
+
+# Ignore images content but keep folder
+images/*
+!images/.gitkeep
