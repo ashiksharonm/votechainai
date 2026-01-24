@@ -8,7 +8,7 @@
  * - Motion Analysis
  */
 
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import * as faceapi from 'face-api.js';
 import './FaceVerification.css';
 

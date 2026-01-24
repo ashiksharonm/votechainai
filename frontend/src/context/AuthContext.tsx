@@ -3,7 +3,8 @@
  * Provides authentication state and methods throughout the app
  */
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { authApi } from '../api/client';
 import type { User } from '../api/types';
 
