@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VoteChainAI is a secure, AI-assisted voting platform designed for institutions that demand trust, auditability, and explainability at scale.">
+  <meta name="keywords" content="voting, blockchain, AI, election, security, transparency, democracy, civic tech">
+  <meta name="author" content="VoteChainAI">
+  
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="VoteChainAI - Civic Infrastructure for the AI Era">
+  <meta property="og:description" content="Secure, AI-assisted voting platform with blockchain-backed auditability and explainable election analytics.">
+  <meta property="og:image" content="/assets/og-image.png">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="VoteChainAI - Civic Infrastructure for the AI Era">
+  <meta name="twitter:description" content="Secure, AI-assisted voting platform with blockchain-backed auditability.">
+  
+  <title>VoteChainAI - Civic Infrastructure for the AI Era</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/components.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='url(%23grad)'/><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%236EE7F9'/><stop offset='100%25' style='stop-color:%238B5CF6'/></linearGradient></defs><path d='M30 50l15 15 25-30' stroke='white' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+</head>
+<body>
+  <!-- Skip to main content for accessibility -->
+  <a href="#main" class="sr-only">Skip to main content</a>
+  
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="container nav__inner">
+      <a href="/" class="nav__logo" aria-label="VoteChainAI Home">
+        <span class="nav__logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </span>
+        <span>VoteChainAI</span>
+      </a>
+      
+      <div class="nav__actions">
+        <button 
+          class="theme-toggle" 
+          type="button"
+          role="switch"
+          aria-label="Switch to light mode"
+          aria-checked="false"
+        >
+          <span class="theme-toggle__slider">
+            <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__animation" aria-hidden="true">
+        <div class="hero__glow"></div>
+        <div class="hero__animation-frame active">
+          <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="150" stroke="url(#gradient1)" stroke-width="2" opacity="0.3"/>
+            <circle cx="200" cy="200" r="100" stroke="url(#gradient1)" stroke-width="2" opacity="0.5"/>
+            <circle cx="200" cy="200" r="50" stroke="url(#gradient1)" stroke-width="2" opacity="0.7"/>
+            <defs>
+              <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#6EE7F9"/>
+                <stop offset="100%" style="stop-color:#8B5CF6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="hero__animation-frame">
+          <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="100" y="100" width="200" height="200" rx="20" stroke="url(#gradient2)" stroke-width="2" opacity="0.5"/>
+            <rect x="130" y="130" width="140" height="140" rx="10" stroke="url(#gradient2)" stroke-width="2" opacity="0.7"/>
+            <rect x="160" y="160" width="80" height="80" rx="5" stroke="url(#gradient2)" stroke-width="2" opacity="0.9"/>
+            <defs>
+              <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#22D3EE"/>
+                <stop offset="100%" style="stop-color:#6366F1"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="hero__animation-frame">
+          <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M200 50 L350 150 L350 300 L200 350 L50 300 L50 150 Z" stroke="url(#gradient3)" stroke-width="2" opacity="0.6" fill="none"/>
+            <path d="M200 100 L300 160 L300 280 L200 320 L100 280 L100 160 Z" stroke="url(#gradient3)" stroke-width="2" opacity="0.8" fill="none"/>
+            <circle cx="200" cy="200" r="30" fill="url(#gradient3)" opacity="0.5"/>
+            <path d="M185 200 L195 210 L215 190" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#6EE7F9"/>
+                <stop offset="100%" style="stop-color:#8B5CF6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+      
+      <div class="container hero__content">
+        <div class="hero__badge" data-animate>
+          <span class="hero__badge-dot" aria-hidden="true"></span>
+          <span>Civic Infrastructure for the AI Era</span>
+        </div>
+        
+        <h1 id="hero-title" class="hero__title" data-animate>
+          Trust, Transparency, and<br>
+          <span class="text-gradient">Verifiable Democracy.</span>
+        </h1>
+        
+        <p class="hero__subtitle" data-animate>
+          VoteChainAI is a secure, AI-assisted voting platform designed for institutions 
+          that demand trust, auditability, and explainability at scale.
+        </p>
+        
+        <div class="hero__ctas" data-animate>
+          <a href="#demo" class="btn btn--primary btn--lg">
+            Launch Demo
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="#audit" class="btn btn--secondary btn--lg">
+            View Audit Trail
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-4" aria-labelledby="how-it-works-title">
+      <div class="container">
+        <header class="section-header" data-animate>
+          <span class="section-header__eyebrow">How It Works</span>
+          <h2 id="how-it-works-title" class="section-header__title">
+            Secure by Design, <span class="text-gradient">Transparent by Default</span>
+          </h2>
+          <p class="section-header__description">
+            A four-step process that ensures every vote is secure, private, and verifiable.
+          </p>
+        </header>
+        
+        <div class="grid grid-4">
+          <article class="card" data-animate>
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <h3 class="card__title">Identity & Eligibility</h3>
+            <p class="card__description">Privacy-preserving verification</p>
+            <ul class="card__list">
+              <li>Zero-knowledge proofs</li>
+              <li>No biometric storage</li>
+              <li>Decentralized identity</li>
+            </ul>
+          </article>
+          
+          <article class="card" data-animate>
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <h3 class="card__title">Secure Vote Casting</h3>
+            <p class="card__description">Encrypted ballots</p>
+            <ul class="card__list">
+              <li>End-to-end encryption</li>
+              <li>One-person-one-vote</li>
+              <li>Receipt-free voting</li>
+            </ul>
+          </article>
+          
+          <article class="card" data-animate>
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+                <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+              </svg>
+            </div>
+            <h3 class="card__title">Immutable Ledger</h3>
+            <p class="card__description">Blockchain vote hash</p>
+            <ul class="card__list">
+              <li>Tamper-evident records</li>
+              <li>Distributed consensus</li>
+              <li>Cryptographic proofs</li>
+            </ul>
+          </article>
+          
+          <article class="card" data-animate>
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+              </svg>
+            </div>
+            <h3 class="card__title">AI Oversight</h3>
+            <p class="card__description">Pattern & anomaly detection</p>
+            <ul class="card__list">
+              <li>Real-time monitoring</li>
+              <li>Explainable alerts</li>
+              <li>Human-in-the-loop</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Novelty Section - What Makes VoteChainAI Different -->
+    <section id="novelty" class="py-4" aria-labelledby="novelty-title">
+      <div class="container">
+        <header class="section-header" data-animate>
+          <span class="section-header__eyebrow">What Makes Us Different</span>
+          <h2 id="novelty-title" class="section-header__title">
+            Beyond Blockchain: <span class="text-gradient">Intelligence + Explainability</span>
+          </h2>
+          <p class="section-header__description">
+            VoteChainAI combines blockchain auditability with AI-driven insights and human-readable explanations.
+          </p>
+        </header>
+        
+        <div class="grid grid-3">
+          <article class="novelty-card" data-animate>
+            <div class="novelty-card__emoji" aria-hidden="true">🧠</div>
+            <h3 class="novelty-card__title">AI Anomaly Detection</h3>
+            <p class="novelty-card__subtitle">Real-time pattern analysis</p>
+            <ul class="novelty-card__list">
+              <li>Sudden turnout spikes</li>
+              <li>Timing irregularities</li>
+              <li>Duplicate or correlated behavior</li>
+              <li>Geographic outliers</li>
+            </ul>
+          </article>
+          
+          <article class="novelty-card" data-animate>
+            <div class="novelty-card__emoji" aria-hidden="true">🔍</div>
+            <h3 class="novelty-card__title">Explainable Elections</h3>
+            <p class="novelty-card__subtitle">SHAP-style reasoning</p>
+            <ul class="novelty-card__list">
+              <li>Human-readable "why" explanations</li>
+              <li>Feature importance breakdowns</li>
+              <li>Confidence scores for alerts</li>
+              <li>Audit-ready documentation</li>
+            </ul>
+          </article>
+          
+          <article class="novelty-card" data-animate>
+            <div class="novelty-card__emoji" aria-hidden="true">📊</div>
+            <h3 class="novelty-card__title">Transparency Dashboard</h3>
+            <p class="novelty-card__subtitle">Post-election analytics</p>
+            <ul class="novelty-card__list">
+              <li>Turnout trends visualization</li>
+              <li>Confidence scores by region</li>
+              <li>Participation demographics</li>
+              <li>Real-time vote counting</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Audit Explorer -->
+    <section id="audit" class="py-4" aria-labelledby="audit-title">
+      <div class="container">
+        <header class="section-header" data-animate>
+          <span class="section-header__eyebrow">Transparency in Action</span>
+          <h2 id="audit-title" class="section-header__title">
+            <span class="text-gradient">Interactive</span> Audit Explorer
+          </h2>
+          <p class="section-header__description">
+            Verify any vote with our public audit trail. Enter a Vote ID to see its blockchain record.
+          </p>
+        </header>
+        
+        <div class="audit-explorer" data-animate>
+          <div class="audit-explorer__header" aria-hidden="true">
+            <span class="audit-explorer__dot audit-explorer__dot--red"></span>
+            <span class="audit-explorer__dot audit-explorer__dot--yellow"></span>
+            <span class="audit-explorer__dot audit-explorer__dot--green"></span>
+          </div>
+          <div class="audit-explorer__body">
+            <form class="audit-explorer__form audit-explorer__search" role="search" aria-label="Vote lookup">
+              <label for="vote-id-input" class="sr-only">Enter Vote ID</label>
+              <input 
+                type="text" 
+                id="vote-id-input"
+                class="audit-explorer__input" 
+                placeholder="Enter Vote ID (e.g., VOTE-2024-A7B3C9)"
+                aria-describedby="vote-id-help"
+              >
+              <button type="submit" class="btn btn--primary">
+                Verify
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+            </form>
+            <p id="vote-id-help" class="sr-only">Enter a vote ID to look up its verification status and blockchain record</p>
+            
+            <div class="audit-explorer__result-container">
+              <!-- Results will be injected by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="py-4" aria-labelledby="tech-title">
+      <div class="container">
+        <header class="section-header" data-animate>
+          <span class="section-header__eyebrow">Built With Trust</span>
+          <h2 id="tech-title" class="section-header__title">
+            Enterprise-Grade <span class="text-gradient">Technology Stack</span>
+          </h2>
+          <p class="section-header__description">
+            Powered by proven technologies designed for security, scalability, and transparency.
+          </p>
+        </header>
+        
+        <div class="tech-badges" data-animate>
+          <span class="tech-badge">
+            <svg class="tech-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+              <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+            </svg>
+            Blockchain Ledger
+          </span>
+          
+          <span class="tech-badge">
+            <svg class="tech-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            FastAPI Backend
+          </span>
+          
+          <span class="tech-badge">
+            <svg class="tech-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+            AI Anomaly Models
+          </span>
+          
+          <span class="tech-badge">
+            <svg class="tech-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            Secure APIs
+          </span>
+          
+          <span class="tech-badge">
+            <svg class="tech-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            Open-Source Ready
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="demo" class="py-4" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta-section" data-animate>
+          <h2 id="cta-title" class="cta-section__title">
+            Democracy deserves infrastructure<br>
+            <span class="text-gradient">you can trust.</span>
+          </h2>
+          
+          <div class="cta-section__buttons">
+            <a href="#" class="btn btn--primary btn--lg" aria-label="Try interactive demo">
+              Try Interactive Demo
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </a>
+            <a href="#" class="btn btn--secondary btn--lg" aria-label="View architecture on GitHub">
+              View GitHub Architecture
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p class="footer__text">
+        © 2024 VoteChainAI. Civic Infrastructure for the AI Era.
+        <br>
+        <a href="#" class="footer__link">Privacy Policy</a> · 
+        <a href="#" class="footer__link">Terms of Service</a> · 
+        <a href="#" class="footer__link">Contact</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="scripts/main.js"></script>
+  <script src="scripts/audit-explorer.js"></script>
+</body>
+</html>

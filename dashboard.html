@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoteChainAI Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0B0F1A;
+            --bg-light: #F5F7FA;
+            --glass-dark: rgba(255, 255, 255, 0.06);
+            --glass-light: rgba(0, 0, 0, 0.04);
+            --primary: #6EE7F9;
+            --accent: #8B5CF6;
+            --text-primary: #E5E7EB;
+            --text-muted: #94A3B8;
+            --success: #22C55E;
+            --error: #EF4444;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h1 {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 28px;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--glass-dark);
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+
+        .status-dot.offline {
+            background: var(--error);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: var(--glass-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab:hover,
+        .tab.active {
+            background: rgba(110, 231, 249, 0.1);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .panel {
+            display: none;
+            background: var(--glass-dark);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            border-radius: 8px;
+            color: #0B0F1A;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: var(--glass-dark);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .message.success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .list-item {
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-item-title {
+            font-weight: 600;
+        }
+
+        .list-item-meta {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge.draft {
+            background: rgba(148, 163, 184, 0.2);
+            color: var(--text-muted);
+        }
+
+        .badge.active {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--success);
+        }
+
+        .badge.closed {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--error);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .token-display {
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 12px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        #logoutBtn {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🗳️ VoteChainAI Dashboard</h1>
+            <div style="display: flex; gap: 16px; align-items: center;">
+                <div class="status-badge">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">Connecting...</span>
+                </div>
+                <button class="btn btn-secondary" id="logoutBtn" onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('auth')">🔐 Auth</button>
+            <button class="tab" onclick="showTab('elections')">🗳️ Elections</button>
+            <button class="tab" onclick="showTab('vote')">✅ Vote</button>
+            <button class="tab" onclick="showTab('audit')">📋 Audit</button>
+        </div>
+
+        <!-- Auth Panel -->
+        <div class="panel active" id="auth-panel">
+            <div class="grid">
+                <div class="card">
+                    <h3>Register</h3>
+                    <p>Create a new account</p>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="reg-email" placeholder="user@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="reg-password" placeholder="Min 8 characters">
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select id="reg-role">
+                            <option value="voter">Voter</option>
+                            <option value="admin">Admin</option>
+                            <option value="auditor">Auditor</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="register()">Register</button>
+                    <div id="reg-message"></div>
+                </div>
+
+                <div class="card">
+                    <h3>Login</h3>
+                    <p>Sign in to your account</p>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="login-email" placeholder="user@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" placeholder="Your password">
+                    </div>
+                    <button class="btn" onclick="login()">Login</button>
+                    <div id="login-message"></div>
+                    <div class="token-display" id="token-display" style="display: none;">
+                        <strong>JWT Token:</strong>
+                        <pre id="jwt-token"></pre>
+                    </div>
+                </div>
+
+                <div class="card" id="profile-card" style="display: none;">
+                    <h3>Profile</h3>
+                    <div class="user-info">
+                        <div class="avatar" id="user-avatar">?</div>
+                        <div>
+                            <div id="user-email">-</div>
+                            <div class="list-item-meta" id="user-role">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Elections Panel -->
+        <div class="panel" id="elections-panel">
+            <h2>Elections</h2>
+            <div class="grid" style="margin-bottom: 24px;">
+                <div class="card">
+                    <h3>Create Election (Admin)</h3>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="election-title" placeholder="Election title">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="election-desc" rows="2" placeholder="Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Start Time</label>
+                        <input type="datetime-local" id="election-start">
+                    </div>
+                    <div class="form-group">
+                        <label>End Time</label>
+                        <input type="datetime-local" id="election-end">
+                    </div>
+                    <button class="btn" onclick="createElection()">Create Election</button>
+                    <div id="election-message"></div>
+                </div>
+            </div>
+
+            <h3>Active Elections</h3>
+            <div class="list" id="elections-list">
+                <div class="list-item">
+                    <span class="list-item-meta">Loading elections...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vote Panel -->
+        <div class="panel" id="vote-panel">
+            <h2>Cast Your Vote</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Vote</h3>
+                    <div class="form-group">
+                        <label>Select Election</label>
+                        <select id="vote-election">
+                            <option value="">Select an election</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Choice (encrypted on submit)</label>
+                        <input type="text" id="vote-choice" placeholder="Enter your vote">
+                    </div>
+                    <button class="btn" onclick="castVote()">Cast Vote</button>
+                    <div id="vote-message"></div>
+                    <div id="vote-receipt" style="display: none; margin-top: 16px;">
+                        <h4>Vote Receipt</h4>
+                        <div class="token-display">
+                            <pre id="receipt-data"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Verify Vote</h3>
+                    <div class="form-group">
+                        <label>Vote Hash</label>
+                        <input type="text" id="verify-hash" placeholder="0x...">
+                    </div>
+                    <button class="btn" onclick="verifyVote()">Verify</button>
+                    <div id="verify-message"></div>
+                    <div id="verify-result" style="display: none; margin-top: 16px;">
+                        <div class="token-display">
+                            <pre id="verify-data"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audit Panel -->
+        <div class="panel" id="audit-panel">
+            <h2>Audit Logs</h2>
+            <button class="btn" onclick="loadAuditLogs()" style="margin-bottom: 16px;">Load Audit Logs</button>
+            <div class="list" id="audit-list">
+                <div class="list-item">
+                    <span class="list-item-meta">Click "Load Audit Logs" to view</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000/api/v1';
+        let token = localStorage.getItem('token');
+
+        // Check API status on load
+        async function checkStatus() {
+            try {
+                const res = await fetch('http://localhost:8000/health');
+                const data = await res.json();
+                document.getElementById('statusDot').classList.remove('offline');
+                document.getElementById('statusText').textContent = 'API Online';
+
+                // Check if logged in
+                if (token) {
+                    loadProfile();
+                }
+            } catch (e) {
+                document.getElementById('statusDot').classList.add('offline');
+                document.getElementById('statusText').textContent = 'API Offline';
+            }
+        }
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+
+            document.querySelector(`.tab[onclick="showTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-panel`).classList.add('active');
+
+            if (tabName === 'elections') loadElections();
+            if (tabName === 'vote') loadElectionsForVoting();
+        }
+
+        function showMessage(elementId, message, isError = false) {
+            const el = document.getElementById(elementId);
+            el.className = `message ${isError ? 'error' : 'success'}`;
+            el.textContent = message;
+            setTimeout(() => el.textContent = '', 5000);
+        }
+
+        async function register() {
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const role = document.getElementById('reg-role').value;
+
+            try {
+                const res = await fetch(`${API_BASE}/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, role })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    showMessage('reg-message', `Registered! Email: ${data.email}, Role: ${data.role}`);
+                } else {
+                    showMessage('reg-message', data.detail || 'Registration failed', true);
+                }
+            } catch (e) {
+                showMessage('reg-message', 'Connection error', true);
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const res = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    token = data.access_token;
+                    localStorage.setItem('token', token);
+                    document.getElementById('token-display').style.display = 'block';
+                    document.getElementById('jwt-token').textContent = token;
+                    document.getElementById('logoutBtn').style.display = 'block';
+                    showMessage('login-message', 'Login successful!');
+                    loadProfile();
+                } else {
+                    showMessage('login-message', data.detail || 'Login failed', true);
+                }
+            } catch (e) {
+                showMessage('login-message', 'Connection error', true);
+            }
+        }
+
+        async function loadProfile() {
+            if (!token) return;
+
+            try {
+                const res = await fetch(`${API_BASE}/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById('profile-card').style.display = 'block';
+                    document.getElementById('user-email').textContent = data.email;
+                    document.getElementById('user-role').textContent = `Role: ${data.role}`;
+                    document.getElementById('user-avatar').textContent = data.email[0].toUpperCase();
+                    document.getElementById('logoutBtn').style.display = 'block';
+                }
+            } catch (e) { }
+        }
+
+        function logout() {
+            token = null;
+            localStorage.removeItem('token');
+            document.getElementById('token-display').style.display = 'none';
+            document.getElementById('profile-card').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
+        }
+
+        async function createElection() {
+            if (!token) {
+                showMessage('election-message', 'Please login first', true);
+                return;
+            }
+
+            const title = document.getElementById('election-title').value;
+            const description = document.getElementById('election-desc').value;
+            const start_time = new Date(document.getElementById('election-start').value).toISOString();
+            const end_time = new Date(document.getElementById('election-end').value).toISOString();
+
+            try {
+                const res = await fetch(`${API_BASE}/elections/create`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ title, description, start_time, end_time, eligible_roles: ['voter', 'admin'] })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    showMessage('election-message', `Election created! ID: ${data.id}`);
+                    loadElections();
+                } else {
+                    showMessage('election-message', data.detail || 'Failed to create election', true);
+                }
+            } catch (e) {
+                showMessage('election-message', 'Connection error', true);
+            }
+        }
+
+        async function loadElections() {
+            if (!token) return;
+
+            const list = document.getElementById('elections-list');
+            list.innerHTML = '<div class="list-item"><span class="list-item-meta">Loading...</span></div>';
+
+            try {
+                const res = await fetch(`${API_BASE}/elections/active`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (res.ok && data.length > 0) {
+                    list.innerHTML = data.map(e => `
+                        <div class="list-item">
+                            <div>
+                                <div class="list-item-title">${e.title}</div>
+                                <div class="list-item-meta">ID: ${e.id} | Votes: ${e.vote_count || 0}</div>
+                            </div>
+                            <span class="badge ${e.status}">${e.status}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    list.innerHTML = '<div class="list-item"><span class="list-item-meta">No active elections</span></div>';
+                }
+            } catch (e) {
+                list.innerHTML = '<div class="list-item"><span class="list-item-meta">Error loading elections</span></div>';
+            }
+        }
+
+        async function loadElectionsForVoting() {
+            if (!token) return;
+
+            const select = document.getElementById('vote-election');
+            select.innerHTML = '<option value="">Loading...</option>';
+
+            try {
+                const res = await fetch(`${API_BASE}/elections/active`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    select.innerHTML = '<option value="">Select an election</option>' +
+                        data.map(e => `<option value="${e.id}">${e.title}</option>`).join('');
+                }
+            } catch (e) { }
+        }
+
+        async function castVote() {
+            if (!token) {
+                showMessage('vote-message', 'Please login first', true);
+                return;
+            }
+
+            const election_id = parseInt(document.getElementById('vote-election').value);
+            const encrypted_vote = btoa(document.getElementById('vote-choice').value); // Simple base64 for demo
+
+            try {
+                const res = await fetch(`${API_BASE}/vote/cast`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ election_id, encrypted_vote })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    showMessage('vote-message', 'Vote cast successfully!');
+                    document.getElementById('vote-receipt').style.display = 'block';
+                    document.getElementById('receipt-data').textContent = JSON.stringify(data, null, 2);
+                } else {
+                    showMessage('vote-message', data.detail || 'Failed to cast vote', true);
+                }
+            } catch (e) {
+                showMessage('vote-message', 'Connection error', true);
+            }
+        }
+
+        async function verifyVote() {
+            const vote_hash = document.getElementById('verify-hash').value;
+
+            try {
+                const res = await fetch(`${API_BASE}/vote/verify/${encodeURIComponent(vote_hash)}`);
+                const data = await res.json();
+
+                if (res.ok) {
+                    showMessage('verify-message', 'Vote verified!');
+                    document.getElementById('verify-result').style.display = 'block';
+                    document.getElementById('verify-data').textContent = JSON.stringify(data, null, 2);
+                } else {
+                    showMessage('verify-message', data.detail || 'Vote not found', true);
+                }
+            } catch (e) {
+                showMessage('verify-message', 'Connection error', true);
+            }
+        }
+
+        async function loadAuditLogs() {
+            if (!token) {
+                alert('Please login first');
+                return;
+            }
+
+            const list = document.getElementById('audit-list');
+            list.innerHTML = '<div class="list-item"><span class="list-item-meta">Loading...</span></div>';
+
+            try {
+                const res = await fetch(`${API_BASE}/audit/logs`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (res.ok && data.logs.length > 0) {
+                    list.innerHTML = data.logs.map(log => `
+                        <div class="list-item">
+                            <div>
+                                <div class="list-item-title">${log.action}</div>
+                                <div class="list-item-meta">User ID: ${log.user_id || 'N/A'} | ${new Date(log.created_at).toLocaleString()}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    list.innerHTML = '<div class="list-item"><span class="list-item-meta">No audit logs found (requires Admin/Auditor role)</span></div>';
+                }
+            } catch (e) {
+                list.innerHTML = '<div class="list-item"><span class="list-item-meta">Error loading logs</span></div>';
+            }
+        }
+
+        // Initialize
+        checkStatus();
+    </script>
+</body>
+
+</html>

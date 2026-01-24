@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Node
+node_modules/
+dist/
+build/
+.DS_Store
+
+# VoteChainAI specific
+backend/votechainai.db
+backend/votechainai.db-journal
+test_images/
