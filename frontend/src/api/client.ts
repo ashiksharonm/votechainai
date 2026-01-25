@@ -166,7 +166,12 @@ export const auditApi = {
 // Health check
 export const checkHealth = async (): Promise<boolean> => {
     try {
-        const response = await axios.get('http://localhost:8000/health');
+        // Dynamically determine root URL by removing /api/v1 suffix
+        // Works for both local (http://localhost:8000) and prod (relative /)
+        const rootUrl = API_BASE.replace('/api/v1', '');
+        const target = rootUrl ? `${rootUrl}/health` : '/health';
+
+        const response = await axios.get(target);
         return response.data.status === 'healthy';
     } catch {
         return false;
