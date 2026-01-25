@@ -123,11 +123,6 @@ POST /api/v1/vote/cast          - Cast vote
 GET  /api/v1/vote/verify/{hash} - Verify vote
 ```
 
-### Audit
-```
-GET /api/v1/audit/logs  - View logs (ADMIN/AUDITOR)
-```
-
 ---
 
 ## 🧪 Testing Flow
@@ -140,6 +135,39 @@ GET /api/v1/audit/logs  - View logs (ADMIN/AUDITOR)
 6. **Login** as voter → Dashboard
 7. **Cast a vote** → get receipt with hash
 8. Go to **Verify** → enter hash → see confirmation
+
+---
+
+## 📸 Project Demo
+
+Below is a walkthrough of the application functionality:
+
+### 1. Authentication & Onboarding
+![Landing](output/demo_01.png)
+![Login](output/demo_02.png)
+![Register](output/demo_03.png)
+![Face Registration](output/demo_04.png)
+
+### 2. Face Liveness & Verification
+![Liveness Check](output/demo_05.png)
+![Blink Detection](output/demo_06.png)
+![Face Match](output/demo_07.png)
+![Verification Success](output/demo_08.png)
+![Verification Detail](output/demo_09.png)
+
+### 3. Voting Process
+![Dashboard](output/demo_10.png)
+![Election List](output/demo_11.png)
+![Ballot](output/demo_12.png)
+![Voting Selection](output/demo_13.png)
+![Confirm Vote](output/demo_14.png)
+
+### 4. Verification & Admin
+![Vote Receipt](output/demo_15.png)
+![Cast Success](output/demo_16.png)
+![ZK Verification](output/demo_17.png)
+![Admin Panel](output/demo_18.png)
+![Results](output/demo_19.png)
 
 ---
 
