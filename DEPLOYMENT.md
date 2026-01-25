@@ -51,3 +51,39 @@ Vercel will build your site.
 *   **Backend**: Accessible at `https://votechainai.vercel.app/api/v1/...`
 
 🎉 **Done!** Your app is 100% Free and Live.
+
+---
+
+## "Totally Free" Alternative: Hugging Face Spaces
+
+Your project is now **Hugging Face Ready**. It includes a `Dockerfile` that builds the React Frontend and Python Backend into a single running application.
+
+### Setup Guide
+1.  **Create Space**:
+    *   Go to [huggingface.co/spaces](https://huggingface.co/spaces) -> **Create new Space**.
+    *   Name: `votechain-ai` (or similar).
+    *   SDK: **Docker** (Crucial!).
+    *   Hardware: **Free** (CPU basic · 2 vCPU · 16GB RAM).
+
+2.  **Connect Code**:
+    *   You can clone your repo into the space OR use "Sync with GitHub". 
+    *   Since I'm pushing the code now, "Sync with GitHub" is easiest if you push to your main repo.
+
+3.  **Configure Secrets** (Settings -> Variables and Secrets):
+    *   `DATABASE_URL`: Your Neon Connection String.
+    *   `SECRET_KEY`: Random string.
+    *   `ALGORITHM`: `HS256`
+    *   `ACCESS_TOKEN_EXPIRE_MINUTES`: `30`
+    *   **Note**: You DO NOT need `VITE_API_URL` because the Docker build defaults it to `/api/v1` internally.
+
+4.  **Launch**:
+    *   The space will build (takes ~3-5 mins).
+    *   Once "Running", your app is live at `https://huggingface.co/spaces/YOUR_USER/votechain-ai`!
+
+### Other Alternatives
+*   **Render**: Free tier sleeps after 15 mins.
+*   **Railway**: Trial credits, then paid.
+*   **Fly.io**: Requires credit card for signup, generous free tier.
+*   **Google Cloud**: Free "e2-micro" instance (complex setup).
+
+**Recommendation**: Stick with **Vercel** (Step 2 above) as it is the easiest and most integrated for this project structure.

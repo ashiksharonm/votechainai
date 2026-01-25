@@ -136,17 +136,49 @@ async def health_check():
 
 
 # Root endpoint
-@app.get("/", tags=["Root"])
-async def root():
-    """
-    Root endpoint with API information.
-    """
-    return {
-        "name": "VoteChainAI API",
-        "version": "1.0.0",
-        "documentation": "/docs",
-        "health": "/health"
-    }
+# Serve Frontend (SPA)
+import os
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+# Path to static files (frontend build)
+static_dir = os.path.join(os.path.dirname(__file__), "static")
+
+if os.path.isdir(static_dir):
+    # Mount assets folder
+    if os.path.isdir(os.path.join(static_dir, "assets")):
+        app.mount("/assets", StaticFiles(directory=os.path.join(static_dir, "assets")), name="assets")
+
+    # Serve files or fallback to index.html
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        # Skip API routes (let them 404 if not matched above)
+        if full_path.startswith("api"):
+            return JSONResponse(status_code=404, content={"detail": "API endpoint not found"})
+
+        # Check if file exists (e.g. vite.svg, robots.txt)
+        file_path = os.path.join(static_dir, full_path)
+        if os.path.isfile(file_path):
+            return FileResponse(file_path)
+
+        # Fallback to index.html for SPA routing
+        return FileResponse(os.path.join(static_dir, "index.html"))
+
+    # Root route
+    @app.get("/", tags=["Info"])
+    async def root():
+        return FileResponse(os.path.join(static_dir, "index.html"))
+else:
+    # Development fallback
+    @app.get("/", tags=["Root"])
+    async def root():
+        return {
+            "name": "VoteChainAI API",
+            "version": "1.0.0",
+            "documentation": "/docs",
+            "health": "/health",
+            "message": "Frontend not found. Run in Docker or use npm run dev."
+        }
 
 
 if __name__ == "__main__":
