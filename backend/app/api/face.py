@@ -20,10 +20,17 @@ from app.models.user import User
 router = APIRouter()
 
 # Path to images folder
-IMAGES_DIR = Path(__file__).parent.parent.parent.parent / "images"
+# Use absolute path relative to CWD (/app) or relative to file location
+# Path(__file__) is /app/app/api/face.py -> parent.parent.parent is /app
+IMAGES_DIR = Path(__file__).parent.parent.parent / "images"
 
 # Ensure images directory exists
-IMAGES_DIR.mkdir(exist_ok=True)
+try:
+    IMAGES_DIR.mkdir(exist_ok=True, parents=True)
+except PermissionError:
+    # Fallback to local 'images' if path resolution fails
+    IMAGES_DIR = Path("images")
+    IMAGES_DIR.mkdir(exist_ok=True, parents=True)
 
 
 class FaceRegisterRequest(BaseModel):
