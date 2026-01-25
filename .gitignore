@@ -23,3 +23,7 @@ test_images/
 # Ignore images content but keep folder
 images/*
 !images/.gitkeep
+
+# Ignore locally generated content
+output/
+frontend/public/models/

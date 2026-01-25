@@ -1,0 +1,2 @@
+*.shard1 filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
