@@ -52,6 +52,11 @@ RUN mkdir -p app/static/models && \
 
 # Create non-root user
 RUN useradd -m -u 1000 user
+
+# Pre-create images directory and set permissions
+RUN mkdir -p /app/app/images && \
+    chown -R user:user /app
+
 USER user
 ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
