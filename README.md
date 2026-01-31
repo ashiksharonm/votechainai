@@ -6,6 +6,18 @@ A production-grade, blockchain-backed voting platform with AI-assisted integrity
 
 ---
 
+## 🌐 Live Production Deployment
+
+**Live URL:**  
+👉 https://votechainai.duckdns.org
+
+VoteChainAI is deployed on **AWS EC2 (Free Tier)** with a production-grade setup including **Docker**, **Nginx reverse proxy**, **HTTPS**, and **persistent storage**.  
+The application supports **browser camera access**, which requires a secure HTTPS origin.
+
+> ⚠️ Note: The application may be in demo mode depending on server uptime to stay within AWS Free Tier limits.
+
+---
+
 ## 🏗️ Architecture
 
 ```
@@ -35,6 +47,95 @@ VoteChainAI/
     ├── scripts/
     │   └── deploy.js
     └── test/
+```
+---
+
+## ☁️ AWS Production Deployment
+
+### Infrastructure
+- **Cloud Provider:** AWS
+- **Service:** EC2
+- **Instance Type:** t2.micro (Free Tier)
+- **OS:** Ubuntu 24.04 LTS
+- **Region:** ap-south-1
+
+---
+
+### 🐳 Containerization Strategy
+
+The entire application (frontend + backend) is packaged into a **single Docker image** using a multi-stage build:
+
+- Frontend built with **Vite**
+- Backend served using **FastAPI + Uvicorn**
+- Static frontend files served via FastAPI
+- Internal application port: `7860`
+
+Docker runs **only on localhost** for security:
+127.0.0.1:7860
+
+
+---
+
+### 🔀 Reverse Proxy (Nginx)
+
+Nginx is used as a **reverse proxy** to:
+- Expose the application publicly
+- Route traffic to the Docker container
+- Handle HTTPS termination
+
+
+Internet (HTTPS)
+↓
+Nginx (80 / 443)
+↓
+Docker container (7860)
+
+
+All frontend and backend API calls are routed through the **same origin**:
+
+https://votechainai.duckdns.org/api/v1/
+
+---
+
+
+This avoids CORS issues in production.
+
+---
+
+### 🔐 HTTPS & Domain
+
+- **Domain Provider:** DuckDNS (free subdomain)
+- **Domain:** `votechainai.duckdns.org`
+- **SSL Provider:** Let’s Encrypt (Certbot)
+- **HTTPS:** Enforced with HTTP → HTTPS redirect
+- **Auto Renewal:** Enabled via system timer
+
+HTTPS is mandatory for:
+- Browser camera access
+- Secure authentication
+- Modern browser APIs
+
+---
+
+### 🎥 Camera & Face Verification
+
+Camera-based face registration and verification work because:
+- Application is served over **HTTPS**
+- No mixed-content (HTTP) requests exist
+- API calls use **same-origin routing**
+
+Browsers block camera access on insecure origins, which is why HTTPS was explicitly configured.
+
+---
+
+### 🗄️ Database & Persistence
+
+- **Database:** SQLite
+- **Persistence:** Docker volume mounted to host
+
+Example:
+```bash
+-v ~/votechainai_data:/app/data
 ```
 
 ---
