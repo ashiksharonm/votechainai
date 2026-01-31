@@ -7,6 +7,7 @@ All environment variables are validated and typed.
 
 from functools import lru_cache
 from typing import List
+from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -22,8 +23,13 @@ class Settings(BaseSettings):
     )
     
     # Database
-    database_url: str = "postgresql+asyncpg://postgres:password@localhost:5432/votechainai"
-    database_url_sync: str = "postgresql://postgres:password@localhost:5432/votechainai"
+    # Use absolute path relative to this file location
+    # /app/config.py -> parent is /app
+    base_dir: str = str(Path(__file__).resolve().parent)
+    default_db_path: str = str(Path(__file__).resolve().parent / "db.sqlite3")
+    
+    database_url: str = f"sqlite:///{default_db_path}"
+    database_url_sync: str = f"sqlite:///{default_db_path}"
     
     # JWT Authentication
     jwt_secret_key: str = "your-super-secret-key-change-in-production"

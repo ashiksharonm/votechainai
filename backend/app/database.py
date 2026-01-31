@@ -22,6 +22,17 @@ if is_sqlite:
     # Convert async URL to sync for SQLite
     db_url = settings.database_url.replace("sqlite+aiosqlite", "sqlite")
     
+    # Ensure database directory exists
+    if db_url.startswith("sqlite"):
+        try:
+            # Extract path from URL (sqlite:///path/to/db)
+            db_path = db_url.replace("sqlite:///", "")
+            if db_path != ":memory:":
+                os.makedirs(os.path.dirname(db_path), exist_ok=True)
+        except Exception:
+            # Fallback or ignore if parsing fails (e.g. usage of relative paths without protocol)
+            pass
+    
     engine = create_engine(
         db_url,
         echo=settings.debug,
