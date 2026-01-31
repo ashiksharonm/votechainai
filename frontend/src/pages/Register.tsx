@@ -9,6 +9,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { API_BASE } from '../api/client';
 import * as faceapi from 'face-api.js';
 import './Auth.css';
 
@@ -163,7 +164,7 @@ const Register: React.FC = () => {
 
         try {
             // Step 1: Register face image
-            const faceResponse = await fetch('http://localhost:8000/api/v1/face/register', {
+            const faceResponse = await fetch(`${API_BASE}/face/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

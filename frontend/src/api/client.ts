@@ -9,7 +9,7 @@ import type { User, Election, VoteReceipt, VoteVerification, AuditLog } from './
 // Re-export types for convenience
 export type { User, Election, VoteReceipt, VoteVerification, AuditLog };
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+export const API_BASE = import.meta.env.VITE_API_URL || '/api/v1';
 
 // Create axios instance
 const api = axios.create({

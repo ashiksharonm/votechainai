@@ -12,7 +12,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { electionsApi, votingApi } from '../api/client';
+import { electionsApi, votingApi, API_BASE } from '../api/client';
 import type { Election, VoteReceipt } from '../api/types';
 import FaceVerification from '../components/FaceVerification';
 import './Dashboard.css';
@@ -275,7 +275,7 @@ const Dashboard: React.FC = () => {
                 <FaceVerification
                     onVerified={handleFaceVerified}
                     onCancel={handleCancelFaceVerification}
-                    referenceImageUrl={`http://localhost:8000/api/v1/face/reference/${getEmailPrefix()}`}
+                    referenceImageUrl={`${API_BASE}/face/reference/${getEmailPrefix()}`}
                 />
             )}
 
