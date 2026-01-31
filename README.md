@@ -85,9 +85,13 @@ Nginx is used as a **reverse proxy** to:
 
 
 Internet (HTTPS)
+
 ↓
+
 Nginx (80 / 443)
+
 ↓
+
 Docker container (7860)
 
 
