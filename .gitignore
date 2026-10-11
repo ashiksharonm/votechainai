@@ -27,3 +27,6 @@ images/*
 # Ignore locally generated content
 output/
 frontend/public/models/
+blockchain/artifacts/
+blockchain/cache/
+blockchain/node_modules/

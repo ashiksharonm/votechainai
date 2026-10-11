@@ -9,7 +9,11 @@ from functools import lru_cache
 from typing import List
 from pathlib import Path
 
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+DEFAULT_JWT_SECRET = "your-super-secret-key-change-in-production"
 
 
 class Settings(BaseSettings):
@@ -32,7 +36,7 @@ class Settings(BaseSettings):
     database_url_sync: str = f"sqlite:///{default_db_path}"
     
     # JWT Authentication
-    jwt_secret_key: str = "your-super-secret-key-change-in-production"
+    jwt_secret_key: str = DEFAULT_JWT_SECRET  # dev only; enforced below
     jwt_algorithm: str = "HS256"
     jwt_expire_minutes: int = 1440  # 24 hours
     
@@ -49,6 +53,15 @@ class Settings(BaseSettings):
     # Security
     bcrypt_rounds: int = 12
     
+    @model_validator(mode="after")
+    def _require_real_jwt_secret_outside_debug(self) -> "Settings":
+        """Refuse to start with the placeholder JWT secret unless DEBUG is on."""
+        if not self.debug and self.jwt_secret_key == DEFAULT_JWT_SECRET:
+            raise ValueError(
+                "JWT_SECRET_KEY must be set to a unique value when DEBUG is false"
+            )
+        return self
+
     @property
     def cors_origins_list(self) -> List[str]:
         """Parse CORS origins string into list."""
