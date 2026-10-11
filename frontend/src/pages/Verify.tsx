@@ -2,7 +2,7 @@
  * Verify Vote Page
  * Supports two modes:
  * 1. Simple Verification (via Hash)
- * 2. Zero-Knowledge Proof (via Secret Key + Candidate)
+ * 2. Hash commitment (SHA-256 of candidate:secret, recomputed client-side)
  */
 
 import React, { useState, useEffect } from 'react';
@@ -94,7 +94,7 @@ const Verify: React.FC = () => {
         setComputedHash('');
 
         try {
-            // Local Computation (Client-side ZK step)
+            // Local Computation (client-side hash commitment)
             const hash = await computeCommitment(c, s);
             setComputedHash(hash);
             setVoteHash(hash); // Update common state
@@ -128,7 +128,7 @@ const Verify: React.FC = () => {
                         className={`tab-btn ${mode === 'zk' ? 'active' : ''}`}
                         onClick={() => { setMode('zk'); setError(''); setResult(null); }}
                     >
-                        🔐 By Secret Key (ZK)
+                        🔐 By Secret Key (hash commitment)
                     </button>
                 </div>
 
@@ -190,7 +190,7 @@ const Verify: React.FC = () => {
 
                         {mode === 'zk' && (
                             <div className="zk-success-info">
-                                <p><strong>Zero-Knowledge Proof Valid:</strong></p>
+                                <p><strong>Commitment Valid:</strong></p>
                                 <p className="xs-text">Your secret key generated hash:</p>
                                 <code className="xs-code">{computedHash}</code>
                                 <p className="xs-text">which matches the blockchain record.</p>

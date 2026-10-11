@@ -149,11 +149,18 @@ Example:
 | Feature | Implementation |
 |---------|---------------|
 | Passwords | bcrypt (12 rounds) |
-| Authentication | JWT (HS256, 24h expiry) |
-| Vote Privacy | Only SHA-256 hashes stored |
+| Authentication | JWT (HS256, 24h expiry); the backend refuses to start with the placeholder `JWT_SECRET_KEY` unless `DEBUG=true` |
+| Vote Privacy | Only SHA-256 hashes stored; receipts are hash commitments, SHA-256(`candidate:secret`) (not zero-knowledge proofs) |
 | Immutability | Blockchain-backed ledger |
 | One Vote | DB constraint + smart contract |
 | Roles | Admin, Voter, Auditor |
+
+### Known limitations
+
+- Face/biometric verification runs **client-side only** (face-api.js in the browser); the server does not re-check it, so it is not a security boundary.
+- The backend signs **every vote transaction with a single server-held key**, so the chain proves the server recorded a hash, not that an individual voter signed it.
+- If the blockchain lookup fails, vote verification now returns `verified: false` (shown as pending) instead of trusting the database. In development `get_transaction_block_sync` is still a mock that returns a fixed block number.
+- Lighthouse: the committed `lighthouse-report.json` scores performance 89, accessibility 98, best-practices 100, SEO 100.
 
 ---
 
