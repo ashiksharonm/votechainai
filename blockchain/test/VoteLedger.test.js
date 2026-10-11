@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
+const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
 
 describe("VoteLedger", function () {
     let voteLedger;
@@ -89,7 +90,11 @@ describe("VoteLedger", function () {
         it("Should allow voting in active election", async function () {
             await expect(voteLedger.connect(voter1).submitVote(ELECTION_ID, VOTE_HASH))
                 .to.emit(voteLedger, "VoteSubmitted")
-                .withArgs(ELECTION_ID, voter1.address, VOTE_HASH, await getBlockTimestamp());
+                .withArgs(ELECTION_ID, voter1.address, VOTE_HASH, anyValue);
+
+            // The event timestamp is the timestamp of the block that mined the vote,
+            // i.e. the latest block *after* the transaction (not the one before it).
+            expect(await voteLedger.getVoteTimestamp(VOTE_HASH)).to.equal(await getBlockTimestamp());
 
             expect(await voteLedger.getVoteCount(ELECTION_ID)).to.equal(1);
             expect(await voteLedger.hasAddressVoted(ELECTION_ID, voter1.address)).to.be.true;

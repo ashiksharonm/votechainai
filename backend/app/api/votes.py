@@ -242,7 +242,8 @@ async def verify_vote(
         verified = block_number is not None
     except Exception:
         block_number = None
-        verified = True  # Trust database in case of blockchain connectivity issues
+        # Do not claim verification we could not perform; the client shows this as pending.
+        verified = False
     
     return VoteVerification(
         vote_hash=vote.vote_hash,
