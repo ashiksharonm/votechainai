@@ -1,7 +1,7 @@
 # Multi-stage Dockerfile for Hugging Face Spaces
 
 # Stage 1: Build Frontend
-FROM node:20-slim AS frontend-build
+FROM node:24-slim AS frontend-build
 WORKDIR /app/frontend
 
 # Install dependencies
